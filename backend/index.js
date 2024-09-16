@@ -19,8 +19,8 @@ app.get("/", (request, response) => {
   response.status(200).send("Server is live");
 });
 
-app.use("/todos", todoRoutes);
 app.use(express.static(path.join(__dirname, "/frontend/dist")));
+app.use("/todos", todoRoutes);
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
 });
