@@ -7,7 +7,6 @@ import path from "path";
 
 const app = express();
 
-
 app.use(express.json());
 
 app.use(cors());
@@ -15,11 +14,11 @@ app.use(cors());
 dotenv.config();
 
 const __dirname = path.resolve();
-app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
 app.get("/", (request, response) => {
   response.status(200).send("Server is live");
 });
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
 app.use("/todos", todoRoutes);
 app.get("*", (req, res) => {
@@ -32,6 +31,7 @@ mongoose
     console.log("DB connected successfully!!");
     app.listen(process.env.PORT_NO, () => {
       console.log(`app listens to port ${process.env.PORT_NO}`);
+      console.log("");
     });
   })
   .catch((error) => console.log(error));
