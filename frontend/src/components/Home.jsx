@@ -3,6 +3,9 @@ import Navbar from "./Header";
 import Sidebar from "./Sidebar";
 import TodoCard from "./TodoCard";
 import TodoContext from "../context/todoContext";
+import Lottie from "lottie-react";
+import anime1 from '../assets/anime1.json'
+import anime2 from '../assets/anime2.json'
 
 const Home = () => {
     const [hideDoneTasks, setHideDoneTasks] = useState(false);
@@ -49,8 +52,8 @@ const Home = () => {
       return (
         <>
           <Navbar />
-          <section className="flex flex-col md:flex-row justify-between min-h-[90vh]">
-            <aside className="border-b md:border-none p-5 md:p-3  flex flex-col gap-4 min-w-[20vw]" >
+          <section className="flex flex-col lg:flex-row justify-between min-h-[90vh]">
+            <aside className="border-b md:border-b-none border-r p-5 md:p-3  flex flex-col gap-4 min-w-[20vw]" >
               <Sidebar
                 selectTabItem={selectTabItem}
                 activeTabItems={activeTabItems}
@@ -67,6 +70,9 @@ const Home = () => {
                 >
                   Hide done tasks
                 </label>
+              </div>
+              <div className="hidden lg:block w-[200px] self-center">
+                <Lottie animationData={anime1} loop={true} />
               </div>
             </aside>
             <section className="w-screen md:min-w-[80vw] p-5 md:p-10">

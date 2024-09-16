@@ -46,7 +46,7 @@ const TodoCard = ({ eachTask }) => {
         };
 
         return (
-          <li className="bg-yellow-200 p-3 rounded-lg flex flex-col gap-5 mb-5 justify-between">
+          <li className="bg-yellow-200 p-3 rounded-lg flex flex-col gap-5 mb-5 hover:translate-y-[-8px] shadow-inner transition-all duration-700 ease-in-out justify-between">
             <div className="flex justify-between relative">
               <h1 className={`text-2xl font-semibold ${isTaskDone && "line-through"}`}>{title}</h1>
               <button type="button" className="font-semibold text-xl" onClick={onClickThreeDots}>

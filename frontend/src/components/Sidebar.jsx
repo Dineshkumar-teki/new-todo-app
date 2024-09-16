@@ -14,7 +14,7 @@ const taskTypes = [
 
 const Sidebar = ({ selectTabItem, activeTabItems }) => {
   return (
-    <ul className="flex flex-row flex-wrap md:flex-col gap-4">
+    <ul className="flex flex-row flex-wrap lg:flex-col gap-4">
       {taskTypes.map((eachTask) => (
         <TabItem
           key={eachTask.id}
