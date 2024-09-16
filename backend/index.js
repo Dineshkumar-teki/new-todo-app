@@ -6,7 +6,7 @@ import cors from "cors";
 import path from "path";
 
 const app = express();
-app.use(express.static(path.join(__dirname, "/frontend/dist")));
+
 
 app.use(express.json());
 
@@ -15,6 +15,7 @@ app.use(cors());
 dotenv.config();
 
 const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "/frontend/dist")));
 
 app.get("/", (request, response) => {
   response.status(200).send("Server is live");
