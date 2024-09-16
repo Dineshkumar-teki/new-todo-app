@@ -11,7 +11,7 @@ const Header = () => {
       <Popup
         modal
         trigger={
-          <button className="font-semibold text-xl hover:text-white hover:bg-blue-400 p-3 rounded-full">
+          <button className="font-semibold text-xl shadow-inner bg-teal-400 text-white hover:bg-teal-500 p-3 rounded-full" type="button">
             <FaPlus />
           </button>
         }

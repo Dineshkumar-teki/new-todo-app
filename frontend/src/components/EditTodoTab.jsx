@@ -27,7 +27,7 @@ const EditTodoTab = (props) => {
     <TodoContext.Consumer>
     {
         props => {
-            const {handleUpdateRequest} = props
+            const {handlePutRequest} = props
             const onSubmitForm = event => {
                 event.preventDefault()
                 const todo = {
@@ -37,7 +37,7 @@ const EditTodoTab = (props) => {
                     tags: newTags,
                     status
                 }
-                handleUpdateRequest(_id, todo)
+                handlePutRequest(_id, todo)
                 setTitle('')
                 setDescription('')
                 setTags([])
@@ -62,7 +62,7 @@ const EditTodoTab = (props) => {
                             <label className="font-semibold" htmlFor="description" >Description</label>
                             <textarea className="border border-slate-400 p-2 rounded-lg outline-none focus:border-teal-400 mt-2 mb-5" rows={5} id="description" placeholder='add a description ...' value={newDescription} onChange={onChangeDescription} />
                             <h3 className="font-semibold">Tags</h3>
-                            <ul className="flex justify-between gap-3 flex-wrap">
+                            <ul className="flex justify-between gap-3 mt-3 flex-wrap">
                                 {
                                     taskTypes.map(eachTag => {
                                         const onClickTag = () => {
@@ -75,7 +75,7 @@ const EditTodoTab = (props) => {
                                         }
                                         return (
                                             <li key={eachTag.id} className='eachTag' >
-                                                <button type="button" className={`flex gap-2 items-center p-2 rounded-lg ${newTags.includes(eachTag.id)? "border shadow-lg":null}`} onClick={onClickTag} >
+                                                <button type="button" className={`flex gap-2 items-center px-2 py-2 lg:px-6 rounded-lg ${newTags.includes(eachTag.id)? "border shadow-lg":null}`} onClick={onClickTag} >
                                                     <div className="w-10 h-10 rounded-full" style={{backgroundColor:eachTag.color}}></div>
                                                     <p className="font-medium">{eachTag.type}</p>
                                                 </button>

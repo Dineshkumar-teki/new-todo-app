@@ -2,9 +2,11 @@ import { useState, useEffect } from "react";
 import TodoContext from "./context/todoContext.js";
 import axios from "axios";
 import Home from "./components/Home.jsx";
+import { useSnackbar } from "notistack";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
+  const { enqueueSnackbar } = useSnackbar();
 
   const fetchTodosList = async () => {
     await axios
@@ -21,40 +23,48 @@ function App() {
     await axios
       .post("http://localhost:3000/todos", todo)
       .then((response) => {
-        console.log(response.data);
+        enqueueSnackbar("Todo created successfully", { variant: "success" });
         fetchTodosList();
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) =>
+        enqueueSnackbar(`${error.message}`, { variant: "failure" })
+      );
   };
 
   const handlePutRequest = async (id, todo) => {
     await axios
       .put(`http://localhost:3000/todos/${id}`, todo)
       .then((response) => {
-        console.log(response.data);
+        enqueueSnackbar("Todo updated successfully", { variant: "success" });
         fetchTodosList();
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) =>
+        enqueueSnackbar(`${error.message}`, { variant: "failure" })
+      );
   };
 
   const handleDeleteRequest = async (id) => {
     await axios
       .delete(`http://localhost:3000/todos/${id}`)
       .then((response) => {
-        console.log(response.data);
+        enqueueSnackbar("Todo deleted successfully", { variant: "success" });
         fetchTodosList();
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) =>
+        enqueueSnackbar(`${error.message}`, { variant: "failure" })
+      );
   };
 
   const statusUpdateRequest = async (id, todo) => {
     await axios
       .put(`http://localhost:3000/todos/${id}`, todo)
       .then((response) => {
-        console.log(response.data);
+        todo.status && enqueueSnackbar("Great Job", { variant: "success" });
         fetchTodosList();
       })
-      .catch((error) => console.log(error.message));
+      .catch((error) =>
+        enqueueSnackbar(`${error.message}`, { variant: "failure" })
+      );
   };
 
   return (
