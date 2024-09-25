@@ -3,9 +3,13 @@ import TodoContext from "./context/todoContext.js";
 import axios from "axios";
 import Home from "./components/Home.jsx";
 import { useSnackbar } from "notistack";
+import { Routes, Route } from "react-router-dom";
+import Login from "./pages/Login.jsx";
+import SignUp from "./pages/SignUp.jsx";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
+  const [profileData, setProfileData] = useState({});
   const { enqueueSnackbar } = useSnackbar();
 
   const fetchTodosList = async () => {
@@ -67,17 +71,27 @@ function App() {
       );
   };
 
+  const handleProfileData = (data) => {
+    setProfileData(data);
+  };
+
   return (
     <TodoContext.Provider
       value={{
         todoList,
+        profileData,
         handlePostRequest: handlePostRequest,
         handlePutRequest: handlePutRequest,
         handleDeleteRequest: handleDeleteRequest,
         statusUpdateRequest: statusUpdateRequest,
+        handleProfileData: handleProfileData,
       }}
     >
-      <Home />
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/sign-in" element={<Login />} />
+        <Route path="/sign-up" element={<SignUp />} />
+      </Routes>
     </TodoContext.Provider>
   );
 }
