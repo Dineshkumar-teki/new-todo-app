@@ -3,6 +3,8 @@ import { useState } from "react";
 import TodoContext from "../context/todoContext";
 import Popup from "reactjs-popup";
 import EditTodoItem from "./EditTodoTab";
+import { FaTrash, FaUserEdit } from "react-icons/fa";
+import { MdModeEditOutline } from "react-icons/md";
 
 const taskTypes = [
   { id: "WORK", type: "work", color: "#D2CEFF", active: false },
@@ -17,23 +19,17 @@ const taskTypes = [
 ];
 
 const TodoCard = ({ eachTask }) => {
-  const [displayEditAndDeleteCard, setDisplayEditAndDeleteCard] =
-    useState(false);
 
   const { _id, title, description, tags, status } = eachTask;
   const typeOfTasks = taskTypes.filter((eachTask) =>
     tags.includes(eachTask.id)
   );
 
-  const eAndDCard = displayEditAndDeleteCard ? null : "hideCard";
   const isTaskDone = status ? "taskDone" : null;
   return (
     <TodoContext.Consumer>
       {(props) => {
         const { statusUpdateRequest, handleDeleteRequest } = props;
-        const onClickThreeDots = () => {
-          setDisplayEditAndDeleteCard(!displayEditAndDeleteCard);
-        };
 
         const onChangeTaskStatus = () => {
           const todo = { _id, title, description, tags, status: !status };
@@ -47,29 +43,36 @@ const TodoCard = ({ eachTask }) => {
 
         return (
           <li className="bg-yellow-200 p-3 rounded-lg flex flex-col gap-5 mb-5 hover:translate-y-[-8px] shadow-inner transition-all duration-700 ease-in-out justify-between">
-            <div className="flex justify-between relative">
-              <h1 className={`text-2xl font-semibold ${isTaskDone && "line-through"}`}>{title}</h1>
-              <button type="button" className="font-semibold text-xl" onClick={onClickThreeDots}>
-                <BsThreeDots />
-              </button>
-              <div
-                className={`bg-white w-24 px-2 py-1 rounded-lg absolute top-6 right-0 ${
-                  eAndDCard ? "hidden" : "block"
+            <div className="flex justify-between items-center relative">
+              <h1
+                className={`text-2xl font-semibold ${
+                  isTaskDone && "line-through"
                 }`}
               >
-                <Popup modal trigger={<button type="button">Edit...</button>}>
+                {title}
+              </h1>
+              <div className="flex flex-row-reverse gap-2 ">
+                <button
+                  className="bg-amber-500 hover:bg-amber-600 shadow-inner w-10 h-10 flex items-center justify-center rounded-full"
+                  onClick={onTodoDelete}
+                >
+                  <FaTrash className="text-sm text-white" />
+                </button>
+                <Popup
+                  modal
+                  trigger={
+                    <button className="bg-amber-500 hover:bg-amber-600 w-10 h-10 flex items-center justify-center shadow-inner p-3 rounded-full">
+                      <MdModeEditOutline className="text-md text-white" />
+                    </button>
+                  }
+                >
                   {(close) => (
                     <EditTodoItem
                       todoItem={eachTask}
                       close={close}
-                      onClickThreeDots={onClickThreeDots}
                     />
                   )}
                 </Popup>
-                <hr />
-                <button type="button" onClick={onTodoDelete}>
-                  Delete
-                </button>
               </div>
             </div>
             <p className={`${isTaskDone && "line-through"}`}>{description}</p>

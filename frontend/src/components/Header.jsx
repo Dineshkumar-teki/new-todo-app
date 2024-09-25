@@ -5,6 +5,7 @@ import TodoContext from "../context/todoContext";
 import Cookies from "js-cookie";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import defaultProfile from "../assets/defaultProfile.jpg"
 
 const Header = () => {
   const [showProfile, setShowProfile] = useState(false);
@@ -20,7 +21,7 @@ const Header = () => {
         };
         return (
           <nav className="flex justify-between items-center min-h-[10vh] border-b border-gray-300 px-5">
-            <h1 className="text-lg font-semibold bg-gradient-to-r from-teal-400 to-blue-500 hover:from-pink-500 hover:to-orange-500 px-3 py-1 rounded-md text-white ">
+            <h1 className="text-lg font-semibold bg-gradient-to-r from-teal-400 to-blue-500 hover:bg-gradient-to-l px-3 py-1 rounded-md text-white ">
               todo
             </h1>
             <div className="flex items-center gap-3">
@@ -38,20 +39,20 @@ const Header = () => {
                 {(close) => <CreateTodoTab close={close} />}
               </Popup>
               <button
-                className="relative w-[50px] object-scale-down rounded-full"
+                className="relative w-[50px] object-cover border-2 rounded-full"
                 onClick={() => {
                   setShowProfile(!showProfile);
                 }}
               >
                 <img
-                  className="w-[50px] object-cover rounded-full"
-                  src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                  className="rounded-full"
+                  src={defaultProfile}
                   alt="profile"
                 />
                 {showProfile && (
-                  <div className="absolute left-[-100px]  z-10 text-white rounded-md top-[10vh] bg-slate-400 w-32 py-3 ">
-                    <h2>Profile</h2>
-                    <h2 className="cursor-pointer" onClick={handleLogout}>Logout</h2>
+                  <div className="absolute flex flex-col gap-2 left-[-100px] z-10 text-white rounded-md top-[10vh] bg-slate-400 w-32 py-3 px-1">
+                    <button className="hover:bg-slate-600 py-1 rounded-md" >Profile</button>
+                    <button className="cursor-pointer hover:bg-slate-600 py-1 rounded-md" onClick={handleLogout} >Logout</button>
                   </div>
                 )}
               </button>
