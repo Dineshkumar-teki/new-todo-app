@@ -79,7 +79,7 @@ const SignUp = () => {
               Password
             </label>
             <input
-              type="text"
+              type="password"
               id="password"
               placeholder="Enter password"
               className="p-2 rounded-md outline-none"
