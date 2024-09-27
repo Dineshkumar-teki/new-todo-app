@@ -8,6 +8,7 @@ import Lottie from "lottie-react";
 import anime1 from "../assets/anime1.json";
 import anime2 from "../assets/anime2.json";
 import Cookies from "js-cookie";
+import { InfinitySpin } from "react-loader-spinner";
 
 const Home = () => {
   const [hideDoneTasks, setHideDoneTasks] = useState(false);

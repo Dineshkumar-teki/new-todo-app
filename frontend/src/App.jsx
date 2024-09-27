@@ -9,14 +9,22 @@ import SignUp from "./pages/SignUp.jsx";
 
 function App() {
   const [todoList, setTodoList] = useState([]);
+  const [loader, setLoader] = useState(false);
   const [profileData, setProfileData] = useState({});
   const { enqueueSnackbar } = useSnackbar();
 
   const fetchTodosList = async () => {
+    setLoader(true);
     await axios
       .get("http://localhost:3000/todos")
-      .then((response) => setTodoList(response.data.todoItems))
-      .catch((error) => console.log(error));
+      .then((response) => {
+        setLoader(false);
+        setTodoList(response.data.todoItems);
+      })
+      .catch((error) => {
+        setLoader(false);
+        console.log(error);
+      });
   };
 
   useEffect(() => {
@@ -80,6 +88,8 @@ function App() {
       value={{
         todoList,
         profileData,
+        loader,
+        setLoader: setLoader,
         handlePostRequest: handlePostRequest,
         handlePutRequest: handlePutRequest,
         handleDeleteRequest: handleDeleteRequest,
